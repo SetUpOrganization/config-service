@@ -1,13 +1,15 @@
 package clients
 
 import (
+	"config_service/internal/proto"
 	"context"
 	"fmt"
+	"google.golang.org/grpc"
 	"time"
 )
 
 type UserServiceClient struct {
-	Client proto.UserServiceClient // TODO: закинуть proto и тд
+	Client proto.UsersClient
 }
 
 func NewUserServiceClient(address string, timeout time.Duration) (*UserServiceClient, error) {
@@ -18,5 +20,5 @@ func NewUserServiceClient(address string, timeout time.Duration) (*UserServiceCl
 	if err != nil {
 		return nil, fmt.Errorf("could not connect: %v", err)
 	}
-	return &UserServiceClient{Client: proto.NewUserServiceClient(conn)}, nil
+	return &UserServiceClient{Client: proto.NewUsersClient(conn)}, nil
 }
