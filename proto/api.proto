@@ -1,0 +1,135 @@
+syntax = "proto3";
+
+package config;
+
+option go_package = "github.com/SetUpOrganization/config-service/proto";
+
+service Config {
+  rpc Parse (ParseReq) returns (ParseRes);
+  rpc CreateConfig (CreateConfigReq) returns (CreateConfigRes);
+  rpc UpdateConfig (UpdateConfigReq) returns (UpdateConfigRes);
+  rpc DeleteConfig (DeleteConfigReq) returns (DeleteConfigRes);
+  rpc GetConfig (GetConfigReq) returns (CreateConfigRes);
+  rpc GetConfigsBuUser (GetConfigsBuUserReq) returns (GetConfigsBuUserRes);
+}
+
+message ConfigMsg {
+  string cpu = 1;
+  string gpu = 2;
+  string mother_board = 3;
+  string ram = 4;
+  string case = 5;
+  string fans = 6;
+  string cpu_cooler = 7;
+  string psu = 8;
+  string storage = 9;
+  string mouse = 10;
+  string keyboard = 11;
+  string monitor = 12;
+}
+
+message ConfigMsgFull {
+  string cpu = 1;
+  string gpu = 2;
+  string mother_board = 3;
+  string ram = 4;
+  string case = 5;
+  string fans = 6;
+  string cpu_cooler = 7;
+  string psu = 8;
+  string storage = 9;
+  string mouse = 10;
+  string keyboard = 11;
+  string monitor = 12;
+  string id_user = 13;
+  string cpu_cost = 14;
+  string gpu_cost = 15;
+  string mother_board_cost = 16;
+  string ram_cost = 17;
+  string case_cost = 18;
+  string fans_cost = 19;
+  string cpu_cooler_cost = 20;
+  string psu_cost = 21;
+  string storage_cost = 22;
+  string mouse_cost = 23;
+  string keyboard_cost = 24;
+  string monitor_cost = 25;
+
+}
+
+message ParseReq {
+  string link = 1;
+}
+
+message ParseRes {
+  bool success = 1;
+  string message = 2;
+  string price = 3;
+  string title = 4;
+}
+
+message CreateConfigReq {
+  ConfigMsg config = 1;
+}
+
+message CreateConfigRes {
+  bool success = 1;
+  string message = 2;
+  string id = 3;
+}
+
+message UpdateConfigReq {
+  string id = 1;
+  ConfigMsg config = 2;
+}
+
+message UpdateConfigRes {
+  bool success = 1;
+  string message = 2;
+  string id = 3;
+  ConfigMsg config = 4;
+}
+
+message DeleteConfigReq {
+  string id = 1;
+}
+
+message DeleteConfigRes {
+  bool success = 1;
+  string message = 2;
+  string id = 3;
+}
+
+message GetConfigReq {
+  string id = 1;
+}
+
+message GetConfigRes {
+  bool success = 1;
+  string message = 2;
+  ConfigMsgFull config = 3;
+}
+
+message GetConfigsBuUserReq {
+  string id_user = 1;
+}
+
+message GetConfigsBuUserRes {
+  bool success = 1;
+  string message = 2;
+  repeated ConfigMsgFull configs = 3;
+}
+
+service Users {
+  rpc GetUserAvatar (GetUsersAvatarRequest) returns (GetUsersAvatarResponse);
+}
+
+message GetUsersAvatarRequest {
+  string id = 1;
+}
+
+message GetUsersAvatarResponse {
+  bool success = 1;
+  string message = 2;
+  string avatar = 3;
+}
